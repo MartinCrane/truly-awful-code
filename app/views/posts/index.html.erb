@@ -3,45 +3,14 @@
     <div class="row">
       <div class="row">
         <div class="col-md-1 vote-controls-<%= post.id %>">
-        <% if post.votes.find_by(account: current_account, vote: "upvote") %>
-          <div>
-            <%= link_to upvote_post_path(post), method: :post do  %>
-              <i class="glyphicon glyphicon-ok"></i> You Upvoted!
-            <% end %>
-          </div>
-        <% else %>
-          <div>
-            <%= link_to upvote_post_path(post), method: :post do  %>
-              <i class="glyphicon glyphicon-ok"></i>
-            <% end %>
-          </div>
-        <% end %>
-        <% if post.votes.find_by(account: current_account, vote: "downvote") %>
-          <div>
-            <%= link_to downvote_post_path(post), method: :post do  %>
-              <i class="glyphicon glyphicon-remove"></i></strong> You Downvoted
-            <% end %>
-          </div>
-        <% else %>
-          <div>
-            <%= link_to downvote_post_path(post), method: :post do  %>
-              <i class="glyphicon glyphicon-remove"></i></strong>
-            <% end %>
-          </div>
-        <% end %>
+          <%= post.upvote_button(current_account, self) %>
+          <%= post.downvote_button(current_account, self) %>
         </div>
         <div class="col-md-11">
           <p><%= link_to  post.title, post.link, target: "_blank" %></p>
         </div>
       </div>
-      <% case post.comments.count
-      when 0 %>
-        <p>No Comments... yet</p>
-      <% when 1..10 %>
-        <p><%= post.comments.count %> Comments so far!</p>
-      <% when 10..BigDecimal::INFINITY %>
-        <p><%= post.comments.count %> Comments?!?!</p>
-      <% end %>
+      <%= post.comment_status(self) %>
       <p>Posted by <%= post.account.username %></p>
     </div>
     <% end %>
