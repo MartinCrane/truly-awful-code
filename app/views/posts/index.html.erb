@@ -2,7 +2,8 @@
   <% @posts.each do |post| %>
     <div class="row">
       <div class="row">
-        <div class="col-md-1">
+        <div class="col-md-1 vote-controls-<%= post.id %>">
+        <% unless post.votes.where(account: current_account).first %>
           <div>
             <%= link_to upvote_post_path(post), method: :post, remote: true do  %>
               <i class="glyphicon glyphicon-ok"></i>
@@ -13,9 +14,12 @@
               <i class="glyphicon glyphicon-remove"></i>
             <% end %>
           </div>
+        <% else %>
+          <strong>Already Voted</strong>
+        <% end %>
         </div>
         <div class="col-md-11">
-          <p><%= link_to  post.title, post.link %></p>
+          <p><%= link_to  post.title, post.link, target: "_blank" %></p>
         </div>
       </div>
       <% case post.comments.count

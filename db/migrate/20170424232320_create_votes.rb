@@ -3,6 +3,7 @@ class CreateVotes < ActiveRecord::Migration[5.0]
     create_table :votes do |t|
       t.belongs_to :account, foreign_key: true
       t.belongs_to :post, foreign_key: true
+      t.string :vote
 
       t.timestamps
     end

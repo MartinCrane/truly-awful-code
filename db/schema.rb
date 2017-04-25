@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20170424232320) do
   create_table "votes", force: :cascade do |t|
     t.integer  "account_id"
     t.integer  "post_id"
+    t.string   "vote"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id", "post_id"], name: "index_votes_on_account_id_and_post_id", unique: true, using: :btree

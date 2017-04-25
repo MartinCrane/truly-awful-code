@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Fleddit</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Fleddit</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <div class="container">
-      <h1>Fleddit - Because clones are fun</h1>
-      <%= yield %>
-    </div>
-  </body>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Fleddit</a>
+      </div>
+      <% if logged_in? %>
+        <p class="navbar-text">
+          Welcome, <%= current_account.username %>
+        </p>
+
+        <p class="navbar-text navbar-right">
+          <%= link_to "Logout", sessions_path, method: :delete %>
+        </p>
+      <% else %>
+        <div class="collapse navbar-collapse">
+          <%= form_tag sessions_path, class: "navbar-form navbar-right" do %>
+            <div class="form-group">
+              <%= text_field_tag "session[username]", nil, class: "form-control", placeholder: "Username" %>
+              <%= password_field_tag "session[password]", nil, class: "form-control", placeholder: "Password" %>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          <% end %>
+        </div>
+      <% end %>
+    </nav>
+    <% if notice %>
+      <div class="alert alert-success">
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+        <%= notice %>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+        <%= alert %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </div>
+</body>
 </html>

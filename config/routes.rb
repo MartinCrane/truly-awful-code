@@ -6,4 +6,6 @@ Rails.application.routes.draw do
       post "downvote", to: "votes#downvote"
     end
   end
+  resource :sessions, only: [:create, :destroy]
+  resources :registrations, only: :create
 end
