@@ -1,0 +1,2 @@
+module Votes::UpvotesHelper
+end
