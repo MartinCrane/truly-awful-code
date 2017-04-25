@@ -1,11 +1,11 @@
 class PostListItem < SimpleDelegator
   def vote_status(account)
-    if  self.votes.find_by(account: account, vote: "upvote")
+    vote = self.votes.find_by(account: account)
+    return :no_vote unless vote
+    if vote.vote == "upvote"
       :upvote
-    elsif self.votes.find_by(account: account, vote: ":downvote")
+    elsif vote.vote == "downvote"
       :downvote
-    else
-      :no_vote
     end
   end
 
