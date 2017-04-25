@@ -1,0 +1,32 @@
+<div>
+  <% @posts.each do |post| %>
+    <div class="row">
+      <div class="row">
+        <div class="col-md-1">
+          <div>
+            <%= link_to upvote_post_path(post), method: :post, remote: true do  %>
+              <i class="glyphicon glyphicon-ok"></i>
+            <% end %>
+          </div>
+          <div>
+            <%= link_to downvote_post_path(post), method: :post, remote: true do  %>
+              <i class="glyphicon glyphicon-remove"></i>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-11">
+          <p><%= link_to  post.title, post.link %></p>
+        </div>
+      </div>
+      <% case post.comments.count
+      when 0 %>
+        <p>No Comments... yet</p>
+      <% when 1..10 %>
+        <p><%= post.comments.count %> Comments so far!</p>
+      <% when 10..BigDecimal::INFINITY %>
+        <p><%= post.comments.count %> Comments?!?!</p>
+      <% end %>
+      <p>Posted by <%= post.account.username %></p>
+    </div>
+    <% end %>
+<div>

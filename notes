@@ -1,0 +1,26 @@
+account
+hm posts comments votes
+
+posts
+belong to a account
+has_many comments
+has_many votes
+
+comments 
+belongs_to post
+belongs_to account
+
+vote
+belongs_to account
+belongs_to post
+
+
+List Simple listing of posts, 
+comment count, 
+if you've upvoted or not
+
+Services -> Register Upvote Service, Checks if you've upvoted and does all the logic for that. Fight the desire to put this in the model. Keep it soley related to persistence
+
+Presenters -> Formatted, truncated text for titles, comment count (over 100 comments WHOA, 0, no comments yet, upto 100, just getting started
+CommentsPresenter. If  the current user is the poster, give them different flair or something
+Null Objects, If logged in show username, else, Guest
